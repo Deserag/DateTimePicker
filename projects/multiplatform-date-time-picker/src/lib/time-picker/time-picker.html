@@ -1,0 +1,20 @@
+<div class="clock">
+    <div class="center"></div>
+    <div class="hour-hand"
+      [ngStyle]="{'transform': 'rotate(' + calculateHourHandAngle() + ') translateX(-50%)'}"
+      (mousedown)="onMouseDown('hour', $event)"
+    ></div>
+    <div class="minute-hand"
+      [ngStyle]="{'transform': 'rotate(' + calculateMinuteHandAngle() + ') translateX(-50%)'}"
+      (mousedown)="onMouseDown('minute', $event)"
+    ></div>
+    <div class="numbers">
+      <div class="number"
+        *ngFor="let num of numbers; let i = index"
+        [ngStyle]="{'transform': 'rotate(' + (i * 15) + 'deg) translate(80px) rotate(-' + (i * 15) + 'deg)'}"
+      >
+        <span>{{ num }}</span>
+      </div>
+    </div>
+  </div>
+  

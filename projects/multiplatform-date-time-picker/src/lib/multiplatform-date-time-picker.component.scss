@@ -1,0 +1,154 @@
+.datetime-picker-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.datetime-picker-container div {
+  padding: 10px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  background-color: #fef7ff;
+  border-radius: 5px;
+}
+
+.datetime-picker-container div:hover {
+  background-color: #e0c1ff;
+}
+
+.characteristic-container {
+  background-color: #fef7ff;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  font-size: 18px;
+  color: #6200ea;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input, select, button {
+  margin-top: 5px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+input[type="number"] {
+  width: 40px;
+  text-align: center;
+}
+
+select {
+  width: 60px;
+}
+
+button {
+  background-color: #6200ea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3700b3;
+}
+
+.clock {
+  width: 200px;
+  height: 200px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  position: relative;
+  margin: 20px auto;
+}
+
+.center {
+  width: 10px;
+  height: 10px;
+  background: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hour-hand, .minute-hand {
+  position: absolute;
+  background-color: #000;
+  transform-origin: 50% 100%;
+}
+
+.hour-hand {
+  height: 50%;
+  width: 4px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.minute-hand {
+  height: 50%;
+  width: 3px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.numbers {
+  position: absolute;
+  top: 46%;
+  left: 46%;
+  transform: translate(-50%, -50%);
+}
+
+.number {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #000;
+}
+
+.number span {
+  display: block;
+}
+
+.input-fields {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.input-fields span {
+  margin: 0 5px;
+}
+.centered-input-fields {
+  justify-content: center;
+  gap: 20px;
+}
+
+input[type="number"] {
+  font-size: 1.2em;
+  width: 60px;
+  text-align: center;
+}

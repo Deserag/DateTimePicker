@@ -1,0 +1,95 @@
+<div class="datetime-picker-container">
+  <div *ngFor="let picker of DateTimePicker" (click)="onClickDateTimePicker(picker)">
+    <div *ngIf="picker.configuration.status === 'Date'">
+      {{ picker.configuration.date_old | date: 'fullDate' }}
+    </div>
+    <div *ngIf="picker.configuration.status === 'Time'">
+      {{ picker.configuration.hour_old }}:{{ picker.configuration.minute_old | number: '2.0-0' }}
+    </div>
+    <div *ngIf="picker.configuration.status === 'DateTime'">
+      {{ picker.configuration.date_old | date: 'fullDate' }} {{ picker.configuration.hour_old }}:{{ picker.configuration.minute_old | number: '2.0-0' }}
+    </div>
+    <div *ngIf="picker.configuration.status === 'Date-Date'">
+      {{ picker.configuration.date_old | date: 'fullDate' }} - {{ picker.configuration.date_new | date: 'fullDate' }}
+    </div>
+    <div *ngIf="picker.configuration.status === 'Time-Time'">
+      {{ picker.configuration.hour_old }}:{{ picker.configuration.minute_old | number: '2.0-0' }} - {{ picker.configuration.hour_new }}:{{ picker.configuration.minute_new | number: '2.0-0' }}
+    </div>
+  </div>
+</div>
+
+<div *ngIf="selectedElement" class="characteristic-container">
+
+  <!-- Вывод циферблата для обычного времени-->
+  <div *ngIf="selectedElement.configuration.status === 'Time'">
+    <div class="input-fields centered-input-fields">
+      <input type="number" [(ngModel)]="selectedElement.configuration.hour_old" (change)="onTimeChange({ hour: selectedElement.configuration.hour_old, minute: selectedElement.configuration.minute_old })" min="0" max="23">
+      <input type="number" [(ngModel)]="selectedElement.configuration.minute_old" (change)="onTimeChange({ hour: selectedElement.configuration.hour_old, minute: selectedElement.configuration.minute_old })" min="0" max="59">
+    </div>
+    <app-time-picker 
+      [hour]="selectedElement.configuration.hour_old" 
+      [minute]="selectedElement.configuration.minute_old" 
+      (timeChange)="onTimeChange($event)">
+    </app-time-picker>
+  </div>
+
+  <!-- Вывод циферблата для двух времен-->
+  <div *ngIf="selectedElement.configuration.status === 'Time-Time'">
+    <div *ngIf="!isSettingSecondValue">
+      <div class="input-fields centered-input-fields">
+        <input type="number" [(ngModel)]="selectedElement.configuration.hour_old" (change)="onTimeChange({ hour: selectedElement.configuration.hour_old, minute: selectedElement.configuration.minute_old })" min="0" max="23">
+        <input type="number" [(ngModel)]="selectedElement.configuration.minute_old" (change)="onTimeChange({ hour: selectedElement.configuration.hour_old, minute: selectedElement.configuration.minute_old })" min="0" max="59">
+      </div>
+      <app-time-picker 
+        [hour]="selectedElement.configuration.hour_old" 
+        [minute]="selectedElement.configuration.minute_old" 
+        (timeChange)="onTimeChange($event)">
+      </app-time-picker>
+      <button (click)="setSecondValue()">OK</button>
+    </div>
+    <div *ngIf="isSettingSecondValue">
+      <div class="input-fields centered-input-fields">
+        <input type="number" [(ngModel)]="selectedElement.configuration.hour_new" (change)="onTimeChange({ hour: selectedElement.configuration.hour_new, minute: selectedElement.configuration.minute_new })" min="0" max="23">
+        <input type="number" [(ngModel)]="selectedElement.configuration.minute_new" (change)="onTimeChange({ hour: selectedElement.configuration.hour_new, minute: selectedElement.configuration.minute_new })" min="0" max="59">
+      </div>
+      <app-time-picker 
+        [hour]="selectedElement.configuration.hour_new" 
+        [minute]="selectedElement.configuration.minute_new" 
+        (timeChange)="onTimeChange($event)">
+      </app-time-picker>
+      <button (click)="saveSecondValue()">OK</button>
+    </div>
+  </div>
+
+  <!-- Вывод календаря для даты-->
+  <div *ngIf="selectedElement.configuration.status === 'Date'" class="calendar-container">
+    <app-custom-calendar [initialDate]="initialDate" (dateSelected)="onDateSelected($event, 'date_old')"></app-custom-calendar>
+  </div>
+
+  <!-- Вывод календаря для двух дат-->
+  <div *ngIf="selectedElement.configuration.status === 'Date-Date'" class="calendar-container">
+    <div *ngIf="!isSettingSecondDate">
+      <app-custom-calendar [initialDate]="initialDate" (dateSelected)="onDateSelected($event, 'date_old')"></app-custom-calendar>
+      <button (click)="setSecondDate()">OK</button>
+    </div>
+    <div *ngIf="isSettingSecondDate">
+      <app-custom-calendar [initialDate]="initialDate" (dateSelected)="onDateSelected($event, 'date_new')"></app-custom-calendar>
+      <button (click)="saveSecondDate()">OK</button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedElement.configuration.status === 'DateTime'" class="calendar-container">
+    <div class="input-fields centered-input-fields">
+      <input type="number" [(ngModel)]="selectedElement.configuration.hour_old" (change)="onTimeChange({ hour: selectedElement.configuration.hour_old, minute: selectedElement.configuration.minute_old })" min="0" max="23">
+      <input type="number" [(ngModel)]="selectedElement.configuration.minute_old" (change)="onTimeChange({ hour: selectedElement.configuration.hour_old, minute: selectedElement.configuration.minute_old })" min="0" max="59">
+    </div>
+    <app-time-picker 
+      [hour]="selectedElement.configuration.hour_old" 
+      [minute]="selectedElement.configuration.minute_old" 
+      (timeChange)="onTimeChange($event)">
+    </app-time-picker>
+    
+    <app-custom-calendar [initialDate]="initialDate" (dateSelected)="onDateSelected($event, 'date_old')"></app-custom-calendar>
+  </div>
+  <button (click)="saveChanges()">Сохранить</button>
+</div>

@@ -1,0 +1,38 @@
+<div class="characteristic-container" *ngIf="selectedElement">
+  <h2>Изменение Даты/Времени</h2>
+
+  <div>
+    <label for="status" class="characteristic-label">Статус:</label>
+    <select id="status" class="characteristic-input" [(ngModel)]="selectedElement.configuration.status" (change)="onSelectedElementChange()">
+      <option value="Date">Дата</option>
+      <option value="Time">Время</option>
+      <option value="DateTime">Дата и Время</option>
+      <option value="Date-Date">Диапазон Дат</option>
+      <option value="Time-Time">Диапазон Времени</option>
+    </select>
+  </div>
+
+  <div *ngIf="selectedElement.configuration.status === 'Date' || selectedElement.configuration.status === 'DateTime' || selectedElement.configuration.status === 'Date-Date'">
+    <label for="date_old" class="characteristic-label">Начальная дата:</label>
+    <input type="date" id="date_old" class="characteristic-input" [(ngModel)]="selectedElement.configuration.date_old" (change)="onSelectedElementChange()">
+  </div>
+
+  <div *ngIf="selectedElement.configuration.status === 'Date-Date'">
+    <label for="date_new" class="characteristic-label">Конечная дата:</label>
+    <input type="date" id="date_new" class="characteristic-input" [(ngModel)]="selectedElement.configuration.date_new" (change)="onSelectedElementChange()">
+  </div>
+
+  <div *ngIf="selectedElement.configuration.status === 'Time' || selectedElement.configuration.status === 'DateTime' || selectedElement.configuration.status === 'Time-Time'">
+    <label for="hour_old" class="characteristic-label">Начальные часы:</label>
+    <input type="number" id="hour_old" class="characteristic-input" [(ngModel)]="selectedElement.configuration.hour_old" (change)="onSelectedElementChange()" min="0" max="23">
+    <label for="minute_old" class="characteristic-label">Начальные минуты:</label>
+    <input type="number" id="minute_old" class="characteristic-input" [(ngModel)]="selectedElement.configuration.minute_old" (change)="onSelectedElementChange()" min="0" max="59">
+  </div>
+
+  <div *ngIf="selectedElement.configuration.status === 'Time-Time'">
+    <label for="hour_new" class="characteristic-label">Конечные часы:</label>
+    <input type="number" id="hour_new" class="characteristic-input" [(ngModel)]="selectedElement.configuration.hour_new" (change)="onSelectedElementChange()" min="0" max="23">
+    <label for="minute_new" class="characteristic-label">Конечные минуты:</label>
+    <input type="number" id="minute_new" class="characteristic-input" [(ngModel)]="selectedElement.configuration.minute_new" (change)="onSelectedElementChange()" min="0" max="59">
+  </div>
+</div>

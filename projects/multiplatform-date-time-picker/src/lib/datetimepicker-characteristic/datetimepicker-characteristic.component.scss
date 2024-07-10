@@ -1,0 +1,13 @@
+.characteristic-container {
+    background-color: var(--default-background-color, white);
+    color: var(--default-text-color, black);
+  }
+  
+  .characteristic-label {
+    font-size: var(--default-label-font-size, 16px);
+  }
+  
+  .characteristic-input {
+    font-size: var(--default-input-font-size, 14px);
+  }
+  

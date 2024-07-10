@@ -1,0 +1,29 @@
+<div class="calendar">
+  <div class="selected-date">
+    {{ selectedDate | date: 'fullDate' }}
+  </div>
+  <div class="calendar-header">
+    <button (click)="prevMonth()">‹</button>
+    <span class="dropdowns">
+      <select [(ngModel)]="currentMonth" (ngModelChange)="onMonthChange($event)">
+        <option *ngFor="let month of months; index as i" [value]="i">{{ month }}</option>
+      </select>
+      <select [(ngModel)]="currentYear" (ngModelChange)="onYearChange($event)">
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+      </select>
+    </span>
+    <button (click)="nextMonth()">›</button>
+  </div>
+  <div class="calendar-body">
+    <div class="day-names">
+      <div *ngFor="let day of dayNames">{{ day }}</div>
+    </div>
+    <div class="calendar-grid">
+      <div *ngFor="let day of calendarDays" 
+           [ngClass]="{'outside-month': !isCurrentMonth(day), 'selected': isSelected(day)}"
+           (click)="selectDate(day)">
+        <span>{{ day.getDate() }}</span>
+      </div>
+    </div>
+  </div>
+</div>
